@@ -1,0 +1,1 @@
+# jp_pitch_accent
