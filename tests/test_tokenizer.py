@@ -2,7 +2,15 @@
 
 import unittest
 from typing import List, Dict
-from ..pitch_tokenizer import JapaneseTokenizer
+from pitch_tokenizer import JapaneseTokenizer
+
+
+def is_katakana_word(word: str) -> bool:
+    """Return True if the word is entirely katakana, allowing the prolonged sound mark (ー)."""
+    return all(
+        ('ァ' <= c <= 'ヴ') or c == 'ー'
+        for c in word
+    )
 
 
 class TestJapaneseTokenizer(unittest.TestCase):
@@ -40,7 +48,7 @@ class TestJapaneseTokenizer(unittest.TestCase):
         sentence: str = "コンピュータとインターネットは便利です。"
         tokens: List[Dict[str, str]] = self.tokenizer.tokenize(sentence)
         katakana_tokens: List[Dict[str, str]] = [
-            t for t in tokens if all("ァ" <= c <= "ヴ" for c in t["surface"])
+            t for t in tokens if is_katakana_word(t["surface"])
         ]
         self.assertGreaterEqual(len(katakana_tokens), 2)
         for t in katakana_tokens:
@@ -66,3 +74,4 @@ class TestJapaneseTokenizer(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
