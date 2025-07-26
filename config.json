@@ -1,0 +1,19 @@
+{
+    "enabled": true,
+    "show_on_front": true,
+    "show_on_back": true,
+    "pitch_field_name": "Pitch",
+    "word_field_name": "Expression",
+    "reading_field_name": "Reading",
+    "ojad": {
+        "enabled": true,
+        "rate_limit": 5,
+        "timeout": 10
+    },
+    "style": {
+        "svg_scale": 1.0,
+        "display_type": "popup",
+        "popup_trigger": "hover",
+        "indicator_style": "dotted_underline"
+    }
+} 

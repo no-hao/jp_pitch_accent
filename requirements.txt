@@ -1,0 +1,4 @@
+sudachipy
+sudachidict_core
+requests
+beautifulsoup4 
