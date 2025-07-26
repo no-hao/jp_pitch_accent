@@ -1,4 +1,4 @@
-from pitch_db import PitchDB
+from pitch_db import PitchDB, PITCH_TYPE_LABELS
 import requests
 from bs4 import BeautifulSoup
 
@@ -42,7 +42,9 @@ def test_ojad_chart_examples():
             print(f"  Reading: {result['reading']}")
             print(f"  Drop pos: {result['drop_pos']} (expected: {expected_drop})")
             print(f"  Mora count: {result['num_mora']}")
-            print(f"  Type: {result['pitch_type_label']} (expected: {expected_type})")
+            # Handle both cached and fresh results
+            pitch_type_label = result.get('pitch_type_label', PITCH_TYPE_LABELS[result['pitch_type']])
+            print(f"  Type: {pitch_type_label} (expected: {expected_type})")
         else:
             print("  Failed to get info")
 

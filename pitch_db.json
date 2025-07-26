@@ -1,25 +1,4 @@
 {
-  "名": {
-    "reading": "な",
-    "drop_pos": 0,
-    "num_mora": 1,
-    "pitch_type": 0,
-    "meaning": null
-  },
-  "水": {
-    "reading": "みず",
-    "drop_pos": 0,
-    "num_mora": 2,
-    "pitch_type": 0,
-    "meaning": null
-  },
-  "会社": {
-    "reading": "かいしゃ",
-    "drop_pos": 0,
-    "num_mora": 3,
-    "pitch_type": 0,
-    "meaning": null
-  },
   "大学": {
     "reading": "だいがく",
     "drop_pos": 0,
@@ -27,17 +6,10 @@
     "pitch_type": 0,
     "meaning": null
   },
-  "中国語": {
-    "reading": "ちゅうごくご",
+  "水": {
+    "reading": "みず",
     "drop_pos": 0,
-    "num_mora": 5,
-    "pitch_type": 0,
-    "meaning": null
-  },
-  "見物": {
-    "reading": "けんぶつ",
-    "drop_pos": 0,
-    "num_mora": 4,
+    "num_mora": 2,
     "pitch_type": 0,
     "meaning": null
   },
@@ -53,6 +25,97 @@
     "drop_pos": 1,
     "num_mora": 2,
     "pitch_type": 1,
+    "meaning": null
+  },
+  "お菓子": {
+    "reading": "おかし",
+    "drop_pos": 2,
+    "num_mora": 3,
+    "pitch_type": 2,
+    "meaning": null
+  },
+  "雪国": {
+    "reading": "ゆきぐに",
+    "drop_pos": 2,
+    "num_mora": 4,
+    "pitch_type": 2,
+    "meaning": null
+  },
+  "男": {
+    "reading": "おとこ",
+    "drop_pos": 3,
+    "num_mora": 3,
+    "pitch_type": 3,
+    "meaning": null
+  },
+  "弟": {
+    "reading": "おとうと",
+    "drop_pos": 4,
+    "num_mora": 4,
+    "pitch_type": 3,
+    "meaning": null
+  },
+  "食べる": {
+    "reading": "たべる",
+    "drop_pos": 2,
+    "num_mora": 3,
+    "pitch_type": 2,
+    "meaning": null
+  },
+  "行く": {
+    "reading": "いく",
+    "drop_pos": 0,
+    "num_mora": 2,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "見る": {
+    "reading": "みる",
+    "drop_pos": 1,
+    "num_mora": 2,
+    "pitch_type": 1,
+    "meaning": null
+  },
+  "日本語": {
+    "reading": "にほんご",
+    "drop_pos": 0,
+    "num_mora": 4,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "勉強": {
+    "reading": "べんきょう",
+    "drop_pos": 0,
+    "num_mora": 4,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "名": {
+    "reading": "な",
+    "drop_pos": 0,
+    "num_mora": 1,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "会社": {
+    "reading": "かいしゃ",
+    "drop_pos": 0,
+    "num_mora": 3,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "中国語": {
+    "reading": "ちゅうごくご",
+    "drop_pos": 0,
+    "num_mora": 5,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "見物": {
+    "reading": "けんぶつ",
+    "drop_pos": 0,
+    "num_mora": 4,
+    "pitch_type": 0,
     "meaning": null
   },
   "電気": {
@@ -90,20 +153,6 @@
     "pitch_type": 3,
     "meaning": null
   },
-  "お菓子": {
-    "reading": "おかし",
-    "drop_pos": 2,
-    "num_mora": 3,
-    "pitch_type": 2,
-    "meaning": null
-  },
-  "雪国": {
-    "reading": "ゆきぐに",
-    "drop_pos": 2,
-    "num_mora": 4,
-    "pitch_type": 2,
-    "meaning": null
-  },
   "普及率": {
     "reading": "フキュウリツ",
     "drop_pos": 0,
@@ -132,59 +181,10 @@
     "pitch_type": 0,
     "meaning": null
   },
-  "男": {
-    "reading": "おとこ",
-    "drop_pos": 3,
-    "num_mora": 3,
-    "pitch_type": 3,
-    "meaning": null
-  },
-  "弟": {
-    "reading": "おとうと",
-    "drop_pos": 4,
-    "num_mora": 4,
-    "pitch_type": 3,
-    "meaning": null
-  },
   "桃": {
     "reading": "もも",
     "drop_pos": 0,
     "num_mora": 2,
-    "pitch_type": 0,
-    "meaning": null
-  },
-  "食べる": {
-    "reading": "たべる",
-    "drop_pos": 2,
-    "num_mora": 3,
-    "pitch_type": 2,
-    "meaning": null
-  },
-  "行く": {
-    "reading": "いく",
-    "drop_pos": 0,
-    "num_mora": 2,
-    "pitch_type": 0,
-    "meaning": null
-  },
-  "見る": {
-    "reading": "みる",
-    "drop_pos": 1,
-    "num_mora": 2,
-    "pitch_type": 1,
-    "meaning": null
-  },
-  "日本語": {
-    "reading": "にほんご",
-    "drop_pos": 0,
-    "num_mora": 4,
-    "pitch_type": 0,
-    "meaning": null
-  },
-  "勉強": {
-    "reading": "べんきょう",
-    "drop_pos": 0,
-    "num_mora": 4,
     "pitch_type": 0,
     "meaning": null
   }

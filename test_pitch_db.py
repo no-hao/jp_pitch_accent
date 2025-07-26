@@ -1,4 +1,4 @@
-from pitch_db import PitchDB
+from pitch_db import PitchDB, PITCH_TYPE_LABELS
 
 def test_pitch_db():
     """Test PitchDB functionality with SudachiPy"""
@@ -34,7 +34,8 @@ def test_pitch_db():
             print(f"Reading: {result['reading']}")
             print(f"Drop position: {result['drop_pos']}")
             print(f"Number of morae: {result['num_mora']}")
-            print(f"Pitch type: {result['pitch_type']} ({result['pitch_type_label']})")
+            pitch_type_label = result.get('pitch_type_label', PITCH_TYPE_LABELS[result['pitch_type']])
+            print(f"Pitch type: {result['pitch_type']} ({pitch_type_label})")
         else:
             print("Analysis failed!")
 
