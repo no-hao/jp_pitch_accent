@@ -187,5 +187,110 @@
     "num_mora": 2,
     "pitch_type": 0,
     "meaning": null
+  },
+  "き": {
+    "reading": "き",
+    "drop_pos": 0,
+    "num_mora": 1,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "い": {
+    "reading": "い",
+    "drop_pos": 0,
+    "num_mora": 1,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "ABC": {
+    "reading": "エービーシー",
+    "drop_pos": 0,
+    "num_mora": 6,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "123": {
+    "reading": "イチニサン",
+    "drop_pos": 0,
+    "num_mora": 5,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "!": {
+    "reading": "!",
+    "drop_pos": 0,
+    "num_mora": 1,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "に": {
+    "reading": "に",
+    "drop_pos": 0,
+    "num_mora": 1,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "ます": {
+    "reading": "ます",
+    "drop_pos": 0,
+    "num_mora": 2,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "ネットワーク": {
+    "reading": "ねっとわーく",
+    "drop_pos": 4,
+    "num_mora": 6,
+    "pitch_type": 2,
+    "meaning": null
+  },
+  "エラー": {
+    "reading": "エラー",
+    "drop_pos": 0,
+    "num_mora": 3,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "不正": {
+    "reading": "ふせいな",
+    "drop_pos": 0,
+    "num_mora": 4,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "だ": {
+    "reading": "ナ",
+    "drop_pos": 0,
+    "num_mora": 1,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "文字": {
+    "reading": "もじ",
+    "drop_pos": 1,
+    "num_mora": 2,
+    "pitch_type": 1,
+    "meaning": null
+  },
+  "VERY": {
+    "reading": "ベリー",
+    "drop_pos": 0,
+    "num_mora": 3,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  " ": {
+    "reading": "キゴウ",
+    "drop_pos": 0,
+    "num_mora": 3,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "Long": {
+    "reading": "ロング",
+    "drop_pos": 0,
+    "num_mora": 3,
+    "pitch_type": 0,
+    "meaning": null
   }
 }
