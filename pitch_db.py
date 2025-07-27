@@ -16,6 +16,13 @@ PITCH_TYPE_LABELS = {
     3: "Odaka"
 }
 
+def katakana_to_hiragana(text):
+    """Convert katakana to hiragana."""
+    return text.translate(str.maketrans(
+        'ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロワヲンヴヵヶ',
+        'ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろわをんゔゕゖ'
+    ))
+
 def drop_pos_to_type(drop_pos: int, num_mora: int) -> int:
     """
     Determines pitch accent type based on drop position.
@@ -55,6 +62,9 @@ class PitchDB:
         """
         print(f"Looking up {dict_form} in cache...")
         result = self.db.get(dict_form)
+        if result and result.get("reading"):
+            # Ensure reading is in hiragana
+            result["reading"] = katakana_to_hiragana(result["reading"])
         print(f"Cache result: {result}")
         return result
 
@@ -70,6 +80,9 @@ class PitchDB:
         """
         Add a new entry to the local pitch accent database and save it.
         """
+        # Ensure reading is in hiragana
+        reading = katakana_to_hiragana(reading)
+        
         print(f"Adding entry to cache: {dict_form} = {reading} (drop_pos {drop_pos}, type {pitch_type})")
         self.db[dict_form] = {
             "reading": reading,
@@ -179,11 +192,14 @@ class PitchDB:
 
         dict_form = analysis["dict_form"]
         print(f"Dictionary form: {dict_form}")
+        
+        # First, check cache
         result = self.lookup(dict_form)
         if result is not None:
             print("Found in cache")
             return result
 
+        # Second, try OJAD (which returns hiragana readings)
         print("Not in cache, trying OJAD...")
         ojad_result = self.fetch_from_ojad(dict_form)
         if ojad_result:
@@ -198,8 +214,9 @@ class PitchDB:
                 "pitch_type_label": PITCH_TYPE_LABELS[pitch_type]
             }
 
+        # Third, fallback to SudachiPy reading (convert katakana to hiragana)
         print("OJAD failed, using SudachiPy reading with default pitch")
-        reading = analysis["reading"]
+        reading = katakana_to_hiragana(analysis["reading"])
         drop_pos = 0
         num_mora = len(reading)
         pitch_type = 0

@@ -299,5 +299,40 @@
     "num_mora": 3,
     "pitch_type": 0,
     "meaning": null
+  },
+  "私": {
+    "reading": "わたし",
+    "drop_pos": 0,
+    "num_mora": 3,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "は": {
+    "reading": "は",
+    "drop_pos": 0,
+    "num_mora": 1,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "を": {
+    "reading": "ヲ",
+    "drop_pos": 0,
+    "num_mora": 1,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "て": {
+    "reading": "て",
+    "drop_pos": 1,
+    "num_mora": 1,
+    "pitch_type": 1,
+    "meaning": null
+  },
+  "美しい": {
+    "reading": "うつくしい",
+    "drop_pos": 4,
+    "num_mora": 5,
+    "pitch_type": 2,
+    "meaning": null
   }
 }

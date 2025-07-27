@@ -32,6 +32,9 @@ def on_focus_lost(flag, note, field_idx):
     try:
         # Get the text
         text = note['Expression']
+        if not text or not text.strip():
+            return flag
+            
         print(f"Processing text: {text}")
         
         # Process the text
@@ -40,13 +43,20 @@ def on_focus_lost(flag, note, field_idx):
         print(f"Tokens: {tokens}")
         
         readings = []
+        meanings = []
         
         for token in tokens:
             surface = token["surface"]
             dict_form = token.get("dict", surface)
+            reading = token.get("reading", surface)
+            pos = token.get("pos", [])
+            
+            print(f"Processing token: {surface} -> {dict_form} (reading: {reading}, pos: {pos})")
             
             # Skip processing for punctuation
             if all(not tokenizer.is_kanji(c) and not tokenizer.is_kana(c) for c in surface):
+                print(f"Skipping punctuation: {surface}")
+                readings.append(surface)  # Keep punctuation as-is
                 continue
                 
             # Get reading and pitch info
@@ -59,13 +69,30 @@ def on_focus_lost(flag, note, field_idx):
                 print(f"Found pitch info: {pitch_info}")
                 reading = pitch_info["reading"]
                 readings.append(reading)
-        
-        # Update Reading field
-        if readings:
-            note['Reading'] = ' '.join(readings)
-            return True
+            else:
+                # Fallback to SudachiPy reading
+                print(f"Using SudachiPy reading: {reading}")
+                readings.append(reading)
             
-        return flag
+            # Extract part of speech for meaning field
+            if pos and len(pos) > 0:
+                pos_str = pos[0]  # Primary part of speech
+                if pos_str in ['名詞', '動詞', '形容詞', '副詞']:
+                    meanings.append(f"{surface}({pos_str})")
+        
+        # Update Reading field - join without spaces for Japanese
+        if readings:
+            combined_reading = ''.join(readings)
+            print(f"Combined reading: {combined_reading}")
+            note['Reading'] = combined_reading
+        
+        # Update Meaning field with parts of speech
+        if meanings:
+            combined_meaning = ' '.join(meanings)
+            print(f"Combined meaning: {combined_meaning}")
+            note['Meaning'] = combined_meaning
+        
+        return True
         
     except Exception as e:
         print(f"Error processing field: {e}")
@@ -91,7 +118,6 @@ def init_pitch_accent():
         if model:
             print(f"Note type setup complete: {model['name']}")
             print(f"Fields: {[f['name'] for f in model['flds']]}")
-            print(f"Templates: {[t['name'] for t in model['tmpls']]}")
         else:
             print("Note type setup failed!")
             

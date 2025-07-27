@@ -23,19 +23,17 @@ def setup_note_types():
         mm.add_field(model, mm.new_field("Expression"))
         mm.add_field(model, mm.new_field("Reading"))
         mm.add_field(model, mm.new_field("Meaning"))
-        mm.add_field(model, mm.new_field("Pitch"))
         
         # Add card templates
         t = mm.new_template("Recognition")
         t['qfmt'] = '''
-<div class="expression">{{furigana:Expression}}</div>
+<div class="expression">{{Expression}}</div>
 '''
         t['afmt'] = '''
 {{FrontSide}}
 <hr id="answer">
 <div class="reading">{{Reading}}</div>
 <div class="meaning">{{Meaning}}</div>
-<div class="pitch">{{Pitch}}</div>
 '''
         mm.add_template(model, t)
         
@@ -62,15 +60,6 @@ def setup_note_types():
     font-size: 20px;
     color: #333;
     margin-top: 20px;
-}
-
-ruby {
-    font-size: 1.2em;
-}
-
-rt {
-    font-size: 0.6em;
-    color: #666;
 }
 '''
         
