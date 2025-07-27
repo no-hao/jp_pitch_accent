@@ -1,4 +1,6 @@
 sudachipy
 sudachidict_core
 requests
-beautifulsoup4 
+beautifulsoup4
+pytest
+pytest-cov 

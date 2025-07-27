@@ -292,5 +292,12 @@
     "num_mora": 3,
     "pitch_type": 0,
     "meaning": null
+  },
+  "テスト": {
+    "reading": "てすと",
+    "drop_pos": 0,
+    "num_mora": 3,
+    "pitch_type": 0,
+    "meaning": null
   }
 }

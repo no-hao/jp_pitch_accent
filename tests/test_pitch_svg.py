@@ -1,4 +1,7 @@
 import unittest
+import sys
+import os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from pitch_svg import get_pitch_pattern, generate_pitch_svg, generate_pitch_html
 
 class TestPitchSVG(unittest.TestCase):
