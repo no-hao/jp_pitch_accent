@@ -10,7 +10,7 @@ import os
 import time
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from pitch_svg import get_pitch_pattern, generate_pitch_svg, generate_pitch_html
+from pitch_svg import get_pitch_pattern, get_accent_position, generate_pitch_svg, generate_pitch_html
 from pitch_db import PitchDB, drop_pos_to_type
 
 class TestSVGGeneration(unittest.TestCase):
@@ -22,10 +22,10 @@ class TestSVGGeneration(unittest.TestCase):
         
         # Test cases: (word, expected_pattern_description)
         self.test_cases = [
-            ("大学", "Heiban - flat pattern"),
-            ("木", "Atamadaka - high first, then drop"),
-            ("お菓子", "Nakadaka - middle high"),
-            ("男", "Odaka - high until end"),
+            ("大学", "Heiban - starts low, goes high, stays high"),
+            ("木", "Atamadaka - starts high, drops after first mora"),
+            ("お菓子", "Nakadaka - starts low, rises, drops after second mora"),
+            ("男", "Odaka - starts low, rises, stays high until end"),
         ]
     
     def test_pitch_pattern_generation(self):
@@ -48,20 +48,29 @@ class TestSVGGeneration(unittest.TestCase):
             
             print(f"  Drop pos: {drop_pos}, Mora count: {num_mora}")
             
-            # Convert drop_pos to pitch_type
-            pitch_type = drop_pos_to_type(drop_pos, num_mora)
-            
-            # Generate pitch pattern
-            pattern = get_pitch_pattern(num_mora, pitch_type)
-            print(f"  Pattern: {pattern}")
+            # Generate pitch pattern and accent positions
+            pitch_pattern = get_pitch_pattern(num_mora, drop_pos)
+            accent_positions = get_accent_position(num_mora, drop_pos)
+            print(f"  Pitch pattern: {pitch_pattern}")
+            print(f"  Accent positions: {accent_positions}")
             
             # Generate SVG
-            svg = generate_pitch_svg(pattern)
+            svg = generate_pitch_svg(pitch_pattern, accent_positions)
             if svg:
                 print(f"  SVG: Generated ({len(svg)} characters)")
                 # Check for key SVG elements
                 if 'svg' in svg and 'circle' in svg:
                     print("  ✅ SVG structure looks correct")
+                    # Check for white/black dots based on accent positions
+                    if any(accent_positions):
+                        if 'fill="white"' in svg:
+                            print("  ✅ White accent dot found")
+                        else:
+                            print("  ❌ White accent dot missing")
+                    if 'fill="black"' in svg:
+                        print("  ✅ Black dots found")
+                    else:
+                        print("  ❌ Black dots missing")
                 else:
                     print("  ❌ SVG structure missing key elements")
             else:
@@ -82,10 +91,10 @@ class TestSVGGeneration(unittest.TestCase):
             num_mora = result['num_mora']
             
             print(f"\nGenerating HTML for: {test_word}")
-            # Convert drop_pos to pitch_type
-            pitch_type = drop_pos_to_type(drop_pos, num_mora)
-            pattern = get_pitch_pattern(num_mora, pitch_type)
-            html = generate_pitch_html(pattern)
+            # Generate pitch pattern and accent positions
+            pitch_pattern = get_pitch_pattern(num_mora, drop_pos)
+            accent_positions = get_accent_position(num_mora, drop_pos)
+            html = generate_pitch_html(pitch_pattern, accent_positions)
             
             if html:
                 print(f"  HTML: Generated ({len(html)} characters)")
@@ -95,7 +104,6 @@ class TestSVGGeneration(unittest.TestCase):
                     ('div', 'Container div'),
                     ('svg', 'SVG element'),
                     ('circle', 'Circle elements'),
-                    ('hover', 'Hover functionality'),
                 ]
                 
                 for element, description in checks:
@@ -122,10 +130,10 @@ class TestSVGGeneration(unittest.TestCase):
             if result:
                 drop_pos = result['drop_pos']
                 num_mora = result['num_mora']
-                pitch_type = drop_pos_to_type(drop_pos, num_mora)
-                pattern = get_pitch_pattern(num_mora, pitch_type)
-                svg = generate_pitch_svg(pattern)
-                html = generate_pitch_html(pattern)
+                pitch_pattern = get_pitch_pattern(num_mora, drop_pos)
+                accent_positions = get_accent_position(num_mora, drop_pos)
+                svg = generate_pitch_svg(pitch_pattern, accent_positions)
+                html = generate_pitch_html(pitch_pattern, accent_positions)
         
         duration = time.time() - start_time
         print(f"Total time: {duration:.3f} seconds")
