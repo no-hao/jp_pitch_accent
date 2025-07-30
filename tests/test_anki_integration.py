@@ -11,7 +11,7 @@ import time
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from pitch_db import PitchDB
-from pitch_tokenizer import JapaneseTokenizer
+from sentence_pitch_processor import SentencePitchProcessor
 
 class TestAnkiIntegration(unittest.TestCase):
     """Test Anki integration workflow"""
@@ -19,7 +19,7 @@ class TestAnkiIntegration(unittest.TestCase):
     def setUp(self):
         """Set up test fixtures"""
         self.db = PitchDB()
-        self.tokenizer = JapaneseTokenizer()
+        self.processor = SentencePitchProcessor()
         
         # Simulate user input scenarios
         self.test_scenarios = [
@@ -64,7 +64,7 @@ class TestAnkiIntegration(unittest.TestCase):
                 continue
             
             # Tokenize the input
-            tokens = self.tokenizer.tokenize(scenario['expression'])
+            tokens = self.processor._tokenize(scenario['expression'])
             if not tokens:
                 print("  Result: No tokens found")
                 print("  ❌ FAIL")
@@ -123,7 +123,7 @@ class TestAnkiIntegration(unittest.TestCase):
         start_time = time.time()
         
         for word in test_words:
-            tokens = self.tokenizer.tokenize(word)
+            tokens = self.processor._tokenize(word)
             for token in tokens:
                 self.db.lookup_with_cache(token['surface'])
         

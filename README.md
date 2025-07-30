@@ -59,41 +59,48 @@ pytest --cov=. tests/
 ### Test Structure
 
 - `tests/test_pitch_db.py` - Tests for pitch database functionality
-- `tests/test_tokenizer.py` - Tests for Japanese text tokenization
-- `tests/test_ojad.py` - Tests for OJAD integration
+- `tests/test_sentence_processor.py` - Tests for sentence-level pitch processing
 - `tests/test_pitch_svg.py` - Tests for SVG generation
 - `tests/test_svg_generation.py` - Tests for SVG generation workflow
 - `tests/test_anki_integration.py` - Tests for Anki integration
 - `tests/test_mvp_integration.py` - Tests for MVP functionality
+- `tests/test_field_auto_fill.py` - Tests for field auto-fill functionality
+- `tests/test_ojad.py` - Tests for OJAD integration
+- `tests/test_tokenizer.py` - Tests for Japanese text tokenization
+- `tests/test_chart_comparison.py` - Tests for chart-based validation
 
 ### Project Structure
 
 ```
 jp_pitch_accent/
-├── __init__.py              # Main addon entry point
-├── pitch_db.py              # Pitch accent database and OJAD integration
-├── pitch_svg.py             # SVG generation for pitch accent visualization
-├── pitch_tokenizer.py       # Japanese text tokenization using SudachiPy
-├── note_types.py            # Anki note type setup
-├── config.json              # Addon configuration
-├── pitch_db.json            # Pitch accent data cache
-├── manifest.json            # Addon metadata
-├── tests/                   # Test directory
+├── __init__.py                    # Main addon entry point
+├── sentence_pitch_processor.py    # Sentence-level pitch accent processing
+├── pitch_db.py                    # Pitch accent database and OJAD integration
+├── pitch_svg.py                   # SVG generation for pitch accent visualization
+├── utils.py                       # Shared utility functions
+├── note_types.py                  # Anki note type setup
+├── config.json                    # Addon configuration
+├── pitch_db.json                  # Pitch accent data cache
+├── manifest.json                  # Addon metadata
+├── tests/                         # Test directory
 │   ├── __init__.py
 │   ├── test_pitch_db.py
-│   ├── test_tokenizer.py
-│   ├── test_ojad.py
+│   ├── test_sentence_processor.py
 │   ├── test_pitch_svg.py
 │   ├── test_svg_generation.py
 │   ├── test_anki_integration.py
-│   └── test_mvp_integration.py
-├── run_tests.py             # Test runner
-├── pytest.ini              # Pytest configuration
-├── requirements.txt        # Dependencies
-├── venv/                   # Virtual environment
-├── README.md              # Documentation
-├── LICENSE                # License
-└── .gitignore            # Git ignore rules
+│   ├── test_mvp_integration.py
+│   ├── test_field_auto_fill.py
+│   ├── test_ojad.py
+│   ├── test_tokenizer.py
+│   └── test_chart_comparison.py
+├── run_tests.py                   # Test runner
+├── pytest.ini                    # Pytest configuration
+├── requirements.txt              # Dependencies
+├── venv/                         # Virtual environment
+├── README.md                    # Documentation
+├── LICENSE                      # License
+└── .gitignore                  # Git ignore rules
 ```
 
 ## Configuration

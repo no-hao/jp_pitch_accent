@@ -12,7 +12,7 @@ import time
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from pitch_db import PitchDB
-from pitch_tokenizer import JapaneseTokenizer
+from sentence_pitch_processor import SentencePitchProcessor
 
 class TestMVPIntegration(unittest.TestCase):
     """Test the complete MVP workflow that users will experience"""
@@ -20,7 +20,7 @@ class TestMVPIntegration(unittest.TestCase):
     def setUp(self):
         """Set up test fixtures"""
         self.db = PitchDB()
-        self.tokenizer = JapaneseTokenizer()
+        self.processor = SentencePitchProcessor()
         
         # Test cases: (input_text, expected_reading, expected_pitch_info)
         self.test_cases = [
@@ -58,7 +58,7 @@ class TestMVPIntegration(unittest.TestCase):
             print(f"\nInput: {word}")
             
             # Test tokenization
-            tokens = self.tokenizer.tokenize(word)
+            tokens = self.processor._tokenize(word)
             if not tokens:
                 print("  ❌ Tokenization failed")
                 continue
@@ -95,7 +95,7 @@ class TestMVPIntegration(unittest.TestCase):
             print(f"\nSentence: {sentence}")
             
             # Tokenize the sentence
-            tokens = self.tokenizer.tokenize(sentence)
+            tokens = self.processor._tokenize(sentence)
             print(f"  Tokens: {len(tokens)} found")
             
             # Process each content word (skip particles, etc.)

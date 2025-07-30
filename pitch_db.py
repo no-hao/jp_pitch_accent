@@ -4,6 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 from sudachipy import tokenizer
 from sudachipy import dictionary
+from utils import katakana_to_hiragana
 
 PITCH_DB_PATH = os.path.join(os.path.dirname(__file__), "pitch_db.json")
 
@@ -16,12 +17,7 @@ PITCH_TYPE_LABELS = {
     3: "Odaka"
 }
 
-def katakana_to_hiragana(text):
-    """Convert katakana to hiragana."""
-    return text.translate(str.maketrans(
-        'ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロワヲンヴヵヶ',
-        'ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろわをんゔゕゖ'
-    ))
+
 
 def drop_pos_to_type(drop_pos: int, num_mora: int) -> int:
     """
@@ -117,25 +113,28 @@ class PitchDB:
             soup = BeautifulSoup(resp.text, "html.parser")
             print("Parsed HTML response")
 
-            # Find the OJAD results row for the word (first occurrence most reliable for plain forms)
+            # Find the OJAD results row for the word
             word_row = soup.find("tr", id=lambda x: x and x.startswith("word_"))
             print(f"Found word row: {word_row is not None}")
             if not word_row:
                 print("No word row found")
                 return None
 
-            accented_word = word_row.find("span", class_="accented_word")
-            if not accented_word:
-                print("No accented word found")
+            # Get all readings from the row
+            all_readings = self._extract_all_readings_from_ojad_row(word_row)
+            print(f"Found readings: {all_readings}")
+            
+            # Find the specific reading that matches our search
+            target_reading = self._find_matching_reading(dict_form, all_readings)
+            if not target_reading:
+                print(f"No matching reading found for {dict_form}")
                 return None
-
-            # Reading: collect text from all mora-character spans
-            reading = "".join(span.text for span in accented_word.find_all("span", class_="char"))
-            reading = reading.strip()
-            print(f"Got reading: {reading}")
-
-            # Find all mora spans (look for spans with mola_ class)
-            mora_spans = accented_word.find_all("span", class_=lambda x: x and "mola_" in x)
+            
+            print(f"Using reading: {target_reading['reading']}")
+            
+            # Extract pitch pattern for this specific reading
+            reading = target_reading['reading']
+            mora_spans = target_reading['mora_spans']
             num_mora = len(mora_spans)
             drop_pos = 0  # Default to Heiban
 
@@ -157,6 +156,71 @@ class PitchDB:
             print(f"Exception type: {type(e)}")
             import traceback
             print(f"Traceback: {traceback.format_exc()}")
+        return None
+    
+    def _extract_all_readings_from_ojad_row(self, word_row):
+        """
+        Extract all readings and their mora spans from an OJAD word row.
+        Returns list of dicts with 'reading' and 'mora_spans' keys.
+        """
+        readings = []
+        
+        # Find all accented word spans
+        accented_words = word_row.find_all("span", class_="accented_word")
+        
+        for accented_word in accented_words:
+            # Get the reading text
+            reading = "".join(span.text for span in accented_word.find_all("span", class_="char"))
+            reading = reading.strip()
+            
+            # Get mora spans for this reading
+            mora_spans = accented_word.find_all("span", class_=lambda x: x and "mola_" in x)
+            
+            if reading and mora_spans:
+                readings.append({
+                    'reading': reading,
+                    'mora_spans': mora_spans
+                })
+        
+        return readings
+    
+    def _find_matching_reading(self, search_word, all_readings):
+        """
+        Find the reading that best matches the search word.
+        For conjugated forms, we need to find the specific conjugation.
+        """
+        # First, try exact match
+        for reading_data in all_readings:
+            if reading_data['reading'] == search_word:
+                return reading_data
+        
+        # If no exact match, try to find the conjugated form
+        # Look for the specific conjugation that matches what we're searching for
+        for reading_data in all_readings:
+            reading = reading_data['reading']
+            
+            # Check if this reading matches the search word's reading
+            # For example, if searching for "買います", look for "かいます"
+            if reading == search_word:
+                return reading_data
+            
+            # Also check if the reading is contained in the search word's reading
+            # This handles cases where the search word might be in a different format
+            if len(reading) > 2 and search_word.endswith(reading):
+                return reading_data
+        
+        # If still no match, try to find the most similar reading
+        # This is a fallback for cases where exact matching fails
+        for reading_data in all_readings:
+            reading = reading_data['reading']
+            # Check for partial matches
+            if any(char in reading for char in search_word) or any(char in search_word for char in reading):
+                return reading_data
+        
+        # If still no match, return the first reading (fallback)
+        if all_readings:
+            return all_readings[0]
+        
         return None
 
     def analyze_word(self, word: str):
@@ -191,7 +255,13 @@ class PitchDB:
             return None
 
         dict_form = analysis["dict_form"]
+        reading = analysis["reading"]  # Get the actual reading from tokenization
         print(f"Dictionary form: {dict_form}")
+        print(f"Reading: {reading}")
+        
+        # Convert Katakana reading to Hiragana for OJAD matching
+        hiragana_reading = katakana_to_hiragana(reading)
+        print(f"Hiragana reading: {hiragana_reading}")
         
         # First, check cache
         result = self.lookup(dict_form)
@@ -199,9 +269,9 @@ class PitchDB:
             print("Found in cache")
             return result
 
-        # Second, try OJAD (which returns hiragana readings)
+        # Second, try OJAD with the hiragana reading
         print("Not in cache, trying OJAD...")
-        ojad_result = self.fetch_from_ojad(dict_form)
+        ojad_result = self.fetch_from_ojad_with_reading(dict_form, hiragana_reading)
         if ojad_result:
             print("Got result from OJAD")
             reading, drop_pos, num_mora, pitch_type = ojad_result
@@ -216,7 +286,7 @@ class PitchDB:
 
         # Third, fallback to SudachiPy reading (convert katakana to hiragana)
         print("OJAD failed, using SudachiPy reading with default pitch")
-        reading = katakana_to_hiragana(analysis["reading"])
+        reading = hiragana_reading
         drop_pos = 0
         num_mora = len(reading)
         pitch_type = 0
@@ -228,3 +298,94 @@ class PitchDB:
             "pitch_type": pitch_type,
             "pitch_type_label": PITCH_TYPE_LABELS[pitch_type]
         }
+    
+    def lookup_conjugated_form(self, conjugated_surface: str, conjugated_reading: str, dict_form: str):
+        """
+        Look up a conjugated form specifically.
+        This is for cases where we have a conjugated form like '行きます' with reading 'いきます'.
+        """
+        print(f"\nLooking up conjugated form: {conjugated_surface} (reading: {conjugated_reading})")
+        
+        # Convert to hiragana
+        hiragana_reading = katakana_to_hiragana(conjugated_reading)
+        print(f"Hiragana reading: {hiragana_reading}")
+        
+        # Try OJAD with the conjugated reading
+        ojad_result = self.fetch_from_ojad_with_reading(dict_form, hiragana_reading)
+        if ojad_result:
+            print("Got result from OJAD for conjugated form")
+            reading, drop_pos, num_mora, pitch_type = ojad_result
+            # Store with the conjugated surface as key
+            self.add_entry(conjugated_surface, reading, drop_pos, num_mora, pitch_type)
+            return {
+                "reading": reading,
+                "drop_pos": drop_pos,
+                "num_mora": num_mora,
+                "pitch_type": pitch_type,
+                "pitch_type_label": PITCH_TYPE_LABELS[pitch_type]
+            }
+        
+        # Fallback to normal lookup
+        print("No conjugated form found, falling back to normal lookup")
+        return self.lookup_with_cache(conjugated_surface)
+    
+    def fetch_from_ojad_with_reading(self, dict_form: str, target_reading: str):
+        """
+        Fetch pitch accent info from OJAD using the specific reading.
+        This allows us to find the correct conjugated form.
+        """
+        print(f"Fetching {dict_form} (reading: {target_reading}) from OJAD...")
+        url = "http://www.gavo.t.u-tokyo.ac.jp/ojad/search/index/word:"
+        try:
+            target_url = url + dict_form
+            print(f"Making request to {target_url}")
+            resp = requests.get(target_url, timeout=10)
+            resp.raise_for_status()
+            print("Got response from OJAD")
+            soup = BeautifulSoup(resp.text, "html.parser")
+            print("Parsed HTML response")
+
+            # Find the OJAD results row for the word
+            word_row = soup.find("tr", id=lambda x: x and x.startswith("word_"))
+            print(f"Found word row: {word_row is not None}")
+            if not word_row:
+                print("No word row found")
+                return None
+
+            # Get all readings from the row
+            all_readings = self._extract_all_readings_from_ojad_row(word_row)
+            print(f"Found readings: {[r['reading'] for r in all_readings]}")
+            
+            # Find the specific reading that matches our target reading
+            target_reading_data = self._find_matching_reading(target_reading, all_readings)
+            if not target_reading_data:
+                print(f"No matching reading found for {target_reading}")
+                return None
+            
+            print(f"Using reading: {target_reading_data['reading']}")
+            
+            # Extract pitch pattern for this specific reading
+            reading = target_reading_data['reading']
+            mora_spans = target_reading_data['mora_spans']
+            num_mora = len(mora_spans)
+            drop_pos = 0  # Default to Heiban
+
+            # Check each mora span for accent_top class
+            for idx, mora in enumerate(mora_spans):
+                classes = mora.get("class", [])
+                print(f"  Mora {idx+1}: classes={classes}")
+                if "accent_top" in classes:
+                    drop_pos = idx + 1  # accent_top is on k-th mora, drop is after k-th mora (1-based)
+                    print(f"  Found accent_top at mora {idx+1}, drop_pos set to {drop_pos}")
+                    break
+
+            print(f"Num mora: {num_mora}, Drop pos: {drop_pos}")
+            pitch_type = drop_pos_to_type(drop_pos, num_mora)
+            print(f"Determined pitch type: {pitch_type} ({PITCH_TYPE_LABELS[pitch_type]})")
+            return reading, drop_pos, num_mora, pitch_type
+        except Exception as e:
+            print(f"OJAD fetch failed for {dict_form}: {e}")
+            print(f"Exception type: {type(e)}")
+            import traceback
+            print(f"Traceback: {traceback.format_exc()}")
+        return None

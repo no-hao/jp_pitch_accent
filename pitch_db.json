@@ -6,25 +6,18 @@
     "pitch_type": 0,
     "meaning": null
   },
-  "水": {
-    "reading": "みず",
+  "に": {
+    "reading": "に",
     "drop_pos": 0,
-    "num_mora": 2,
+    "num_mora": 1,
     "pitch_type": 0,
     "meaning": null
   },
-  "木": {
-    "reading": "き",
-    "drop_pos": 1,
-    "num_mora": 1,
-    "pitch_type": 1,
-    "meaning": null
-  },
-  "秋": {
-    "reading": "あき",
-    "drop_pos": 1,
-    "num_mora": 2,
-    "pitch_type": 1,
+  "行きます": {
+    "reading": "いきます",
+    "drop_pos": 3,
+    "num_mora": 4,
+    "pitch_type": 2,
     "meaning": null
   },
   "お菓子": {
@@ -34,25 +27,11 @@
     "pitch_type": 2,
     "meaning": null
   },
-  "雪国": {
-    "reading": "ゆきぐに",
-    "drop_pos": 2,
-    "num_mora": 4,
-    "pitch_type": 2,
-    "meaning": null
-  },
-  "男": {
-    "reading": "おとこ",
-    "drop_pos": 3,
-    "num_mora": 3,
-    "pitch_type": 3,
-    "meaning": null
-  },
-  "弟": {
-    "reading": "おとうと",
-    "drop_pos": 4,
-    "num_mora": 4,
-    "pitch_type": 3,
+  "を": {
+    "reading": "を",
+    "drop_pos": 0,
+    "num_mora": 1,
+    "pitch_type": 0,
     "meaning": null
   },
   "食べる": {
@@ -62,18 +41,46 @@
     "pitch_type": 2,
     "meaning": null
   },
-  "行く": {
-    "reading": "いく",
+  "新しい": {
+    "reading": "あたらしい",
+    "drop_pos": 4,
+    "num_mora": 5,
+    "pitch_type": 2,
+    "meaning": null
+  },
+  "本": {
+    "reading": "ほん",
+    "drop_pos": 1,
+    "num_mora": 2,
+    "pitch_type": 1,
+    "meaning": null
+  },
+  "買いまし": {
+    "reading": "かう",
     "drop_pos": 0,
     "num_mora": 2,
     "pitch_type": 0,
     "meaning": null
   },
-  "見る": {
-    "reading": "みる",
+  "た": {
+    "reading": "た",
     "drop_pos": 1,
-    "num_mora": 2,
+    "num_mora": 1,
     "pitch_type": 1,
+    "meaning": null
+  },
+  "私": {
+    "reading": "わたし",
+    "drop_pos": 0,
+    "num_mora": 3,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "は": {
+    "reading": "は",
+    "drop_pos": 0,
+    "num_mora": 1,
+    "pitch_type": 0,
     "meaning": null
   },
   "日本語": {
@@ -90,10 +97,66 @@
     "pitch_type": 0,
     "meaning": null
   },
+  "して": {
+    "reading": "すって",
+    "drop_pos": 1,
+    "num_mora": 3,
+    "pitch_type": 1,
+    "meaning": null
+  },
+  "います": {
+    "reading": "いる",
+    "drop_pos": 0,
+    "num_mora": 2,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "行く": {
+    "reading": "いく",
+    "drop_pos": 0,
+    "num_mora": 2,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "行って": {
+    "reading": "いって",
+    "drop_pos": 0,
+    "num_mora": 3,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "行った": {
+    "reading": "いった",
+    "drop_pos": 0,
+    "num_mora": 3,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "電気": {
+    "reading": "でんき",
+    "drop_pos": 1,
+    "num_mora": 3,
+    "pitch_type": 1,
+    "meaning": null
+  },
+  "が": {
+    "reading": "が",
+    "drop_pos": 0,
+    "num_mora": 1,
+    "pitch_type": 0,
+    "meaning": null
+  },
   "名": {
     "reading": "な",
     "drop_pos": 0,
     "num_mora": 1,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "水": {
+    "reading": "みず",
+    "drop_pos": 0,
+    "num_mora": 2,
     "pitch_type": 0,
     "meaning": null
   },
@@ -118,10 +181,17 @@
     "pitch_type": 0,
     "meaning": null
   },
-  "電気": {
-    "reading": "でんき",
+  "木": {
+    "reading": "き",
     "drop_pos": 1,
-    "num_mora": 3,
+    "num_mora": 1,
+    "pitch_type": 1,
+    "meaning": null
+  },
+  "秋": {
+    "reading": "あき",
+    "drop_pos": 1,
+    "num_mora": 2,
     "pitch_type": 1,
     "meaning": null
   },
@@ -133,14 +203,14 @@
     "meaning": null
   },
   "シャーベット": {
-    "reading": "シャーベット",
+    "reading": "しゃーべっと",
     "drop_pos": 0,
     "num_mora": 6,
     "pitch_type": 0,
     "meaning": null
   },
   "けんもほろろ": {
-    "reading": "ケンモホロロ",
+    "reading": "けんもほろろ",
     "drop_pos": 0,
     "num_mora": 6,
     "pitch_type": 0,
@@ -153,8 +223,15 @@
     "pitch_type": 3,
     "meaning": null
   },
+  "雪国": {
+    "reading": "ゆきぐに",
+    "drop_pos": 2,
+    "num_mora": 4,
+    "pitch_type": 2,
+    "meaning": null
+  },
   "普及率": {
-    "reading": "フキュウリツ",
+    "reading": "ふきゅうりつ",
     "drop_pos": 0,
     "num_mora": 6,
     "pitch_type": 0,
@@ -168,7 +245,7 @@
     "meaning": null
   },
   "金婚式": {
-    "reading": "キンコンシキ",
+    "reading": "きんこんしき",
     "drop_pos": 0,
     "num_mora": 6,
     "pitch_type": 0,
@@ -181,10 +258,45 @@
     "pitch_type": 0,
     "meaning": null
   },
+  "男": {
+    "reading": "おとこ",
+    "drop_pos": 3,
+    "num_mora": 3,
+    "pitch_type": 3,
+    "meaning": null
+  },
+  "弟": {
+    "reading": "おとうと",
+    "drop_pos": 4,
+    "num_mora": 4,
+    "pitch_type": 3,
+    "meaning": null
+  },
   "桃": {
     "reading": "もも",
     "drop_pos": 0,
     "num_mora": 2,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "見る": {
+    "reading": "みる",
+    "drop_pos": 1,
+    "num_mora": 2,
+    "pitch_type": 1,
+    "meaning": null
+  },
+  "ます": {
+    "reading": "ます",
+    "drop_pos": 0,
+    "num_mora": 2,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "テスト": {
+    "reading": "てすと",
+    "drop_pos": 0,
+    "num_mora": 3,
     "pitch_type": 0,
     "meaning": null
   },
@@ -202,125 +314,6 @@
     "pitch_type": 0,
     "meaning": null
   },
-  "ABC": {
-    "reading": "エービーシー",
-    "drop_pos": 0,
-    "num_mora": 6,
-    "pitch_type": 0,
-    "meaning": null
-  },
-  "123": {
-    "reading": "イチニサン",
-    "drop_pos": 0,
-    "num_mora": 5,
-    "pitch_type": 0,
-    "meaning": null
-  },
-  "!": {
-    "reading": "!",
-    "drop_pos": 0,
-    "num_mora": 1,
-    "pitch_type": 0,
-    "meaning": null
-  },
-  "に": {
-    "reading": "に",
-    "drop_pos": 0,
-    "num_mora": 1,
-    "pitch_type": 0,
-    "meaning": null
-  },
-  "ます": {
-    "reading": "ます",
-    "drop_pos": 0,
-    "num_mora": 2,
-    "pitch_type": 0,
-    "meaning": null
-  },
-  "ネットワーク": {
-    "reading": "ねっとわーく",
-    "drop_pos": 4,
-    "num_mora": 6,
-    "pitch_type": 2,
-    "meaning": null
-  },
-  "エラー": {
-    "reading": "エラー",
-    "drop_pos": 0,
-    "num_mora": 3,
-    "pitch_type": 0,
-    "meaning": null
-  },
-  "不正": {
-    "reading": "ふせいな",
-    "drop_pos": 0,
-    "num_mora": 4,
-    "pitch_type": 0,
-    "meaning": null
-  },
-  "だ": {
-    "reading": "ナ",
-    "drop_pos": 0,
-    "num_mora": 1,
-    "pitch_type": 0,
-    "meaning": null
-  },
-  "文字": {
-    "reading": "もじ",
-    "drop_pos": 1,
-    "num_mora": 2,
-    "pitch_type": 1,
-    "meaning": null
-  },
-  "VERY": {
-    "reading": "ベリー",
-    "drop_pos": 0,
-    "num_mora": 3,
-    "pitch_type": 0,
-    "meaning": null
-  },
-  " ": {
-    "reading": "キゴウ",
-    "drop_pos": 0,
-    "num_mora": 3,
-    "pitch_type": 0,
-    "meaning": null
-  },
-  "Long": {
-    "reading": "ロング",
-    "drop_pos": 0,
-    "num_mora": 3,
-    "pitch_type": 0,
-    "meaning": null
-  },
-  "テスト": {
-    "reading": "てすと",
-    "drop_pos": 0,
-    "num_mora": 3,
-    "pitch_type": 0,
-    "meaning": null
-  },
-  "私": {
-    "reading": "わたし",
-    "drop_pos": 0,
-    "num_mora": 3,
-    "pitch_type": 0,
-    "meaning": null
-  },
-  "は": {
-    "reading": "は",
-    "drop_pos": 0,
-    "num_mora": 1,
-    "pitch_type": 0,
-    "meaning": null
-  },
-  "を": {
-    "reading": "ヲ",
-    "drop_pos": 0,
-    "num_mora": 1,
-    "pitch_type": 0,
-    "meaning": null
-  },
   "て": {
     "reading": "て",
     "drop_pos": 1,
@@ -332,6 +325,160 @@
     "reading": "うつくしい",
     "drop_pos": 4,
     "num_mora": 5,
+    "pitch_type": 2,
+    "meaning": null
+  },
+  "買います": {
+    "reading": "かいます",
+    "drop_pos": 3,
+    "num_mora": 4,
+    "pitch_type": 2,
+    "meaning": null
+  },
+  "食べます": {
+    "reading": "たべます",
+    "drop_pos": 3,
+    "num_mora": 4,
+    "pitch_type": 2,
+    "meaning": null
+  },
+  "見ます": {
+    "reading": "みます",
+    "drop_pos": 2,
+    "num_mora": 3,
+    "pitch_type": 2,
+    "meaning": null
+  },
+  "買う": {
+    "reading": "かう",
+    "drop_pos": 0,
+    "num_mora": 2,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "学校": {
+    "reading": "がっこう",
+    "drop_pos": 0,
+    "num_mora": 4,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "友達": {
+    "reading": "ともだち",
+    "drop_pos": 0,
+    "num_mora": 4,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "と": {
+    "reading": "と",
+    "drop_pos": 0,
+    "num_mora": 1,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "話す": {
+    "reading": "はなす",
+    "drop_pos": 2,
+    "num_mora": 3,
+    "pitch_type": 2,
+    "meaning": null
+  },
+  "家": {
+    "reading": "いえ",
+    "drop_pos": 2,
+    "num_mora": 2,
+    "pitch_type": 3,
+    "meaning": null
+  },
+  "で": {
+    "reading": "で",
+    "drop_pos": 0,
+    "num_mora": 1,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "する": {
+    "reading": "する",
+    "drop_pos": 1,
+    "num_mora": 2,
+    "pitch_type": 1,
+    "meaning": null
+  },
+  "毎日": {
+    "reading": "まいにち",
+    "drop_pos": 1,
+    "num_mora": 4,
+    "pitch_type": 1,
+    "meaning": null
+  },
+  "買って": {
+    "reading": "かって",
+    "drop_pos": 0,
+    "num_mora": 3,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "読みまし": {
+    "reading": "よむ",
+    "drop_pos": 1,
+    "num_mora": 2,
+    "pitch_type": 1,
+    "meaning": null
+  },
+  "一緒": {
+    "reading": "いっしょ",
+    "drop_pos": 0,
+    "num_mora": 3,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "映画": {
+    "reading": "えいが",
+    "drop_pos": 1,
+    "num_mora": 3,
+    "pitch_type": 1,
+    "meaning": null
+  },
+  "昨日": {
+    "reading": "きのう",
+    "drop_pos": 2,
+    "num_mora": 3,
+    "pitch_type": 2,
+    "meaning": null
+  },
+  "、": {
+    "reading": "、",
+    "drop_pos": 0,
+    "num_mora": 1,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "おいしい": {
+    "reading": "おいしい",
+    "drop_pos": 0,
+    "num_mora": 4,
+    "pitch_type": 0,
+    "meaning": null
+  },
+  "料理": {
+    "reading": "りょうり",
+    "drop_pos": 1,
+    "num_mora": 3,
+    "pitch_type": 1,
+    "meaning": null
+  },
+  "食べまし": {
+    "reading": "たべる",
+    "drop_pos": 2,
+    "num_mora": 3,
+    "pitch_type": 2,
+    "meaning": null
+  },
+  "作る": {
+    "reading": "つくる",
+    "drop_pos": 2,
+    "num_mora": 3,
     "pitch_type": 2,
     "meaning": null
   }

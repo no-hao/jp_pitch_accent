@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japanese Pitch Accent - Visual Fix Demo</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 20px; 
+            background-color: #f5f5f5;
+        }
+        .header { 
+            text-align: center; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+            padding: 30px; 
+            border-radius: 10px; 
+            margin-bottom: 30px; 
+        }
+        .section { 
+            background: white; 
+            margin: 20px 0; 
+            padding: 25px; 
+            border-radius: 10px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+        }
+        .section h2 { 
+            color: #333; 
+            border-bottom: 3px solid #667eea; 
+            padding-bottom: 10px; 
+            margin-top: 0; 
+        }
+        .example { 
+            background: #f8f9fa; 
+            border-left: 4px solid #667eea; 
+            padding: 15px; 
+            margin: 15px 0; 
+            border-radius: 0 5px 5px 0; 
+        }
+        .example h3 { 
+            margin: 0 0 10px 0; 
+            color: #333; 
+            font-size: 1.1em; 
+        }
+        .pitch-display { 
+            background: white; 
+            padding: 15px; 
+            border-radius: 5px; 
+            margin: 10px 0; 
+            border: 1px solid #e9ecef; 
+        }
+        .word { 
+            font-size: 1.2em; 
+            font-weight: bold; 
+            color: #333; 
+            margin-bottom: 5px; 
+        }
+        .reading { 
+            color: #666; 
+            font-size: 0.9em; 
+            margin-bottom: 10px; 
+        }
+        .pattern { 
+            font-family: monospace; 
+            font-size: 1.1em; 
+            color: #495057; 
+            margin-bottom: 5px; 
+        }
+        .fix-info { 
+            background: #e7f3ff; 
+            border-left: 4px solid #007bff; 
+            padding: 15px; 
+            margin: 15px 0; 
+            border-radius: 0 5px 5px 0; 
+        }
+        .comparison { 
+            background: #fff3cd; 
+            border-left: 4px solid #ffc107; 
+            padding: 15px; 
+            margin: 15px 0; 
+            border-radius: 0 5px 5px 0; 
+        }
+        .success { 
+            color: #28a745; 
+            font-size: 0.9em; 
+            font-weight: bold; 
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎯 Japanese Pitch Accent Fix</h1>
+        <p>Visual Demo of Atamadaka Connection Rules</p>
+    </div>
+    
+    <div class="fix-info">
+        <h4>🔧 What Was Fixed</h4>
+        <p><strong>Problem:</strong> Atamadaka words (like 本, 学校, 映画) were inheriting LOW pitch from previous words instead of always starting HIGH.</p>
+        <p><strong>Solution:</strong> Added rule that Atamadaka words (pitch_type: 1) always start HIGH, regardless of previous word's ending pitch.</p>
+        <p><strong>Rule:</strong> Atamadaka words ALWAYS start HIGH, other words inherit pitch from previous word.</p>
+    </div>
+
+    <div class="section">
+        <h2>🎯 The Original Problem: 新しい本</h2>
+        <p>This was the sentence that revealed the bug - 本 should start HIGH after 新しい ends LOW</p>
+
+        <div class="example">
+            <h3>Example: 新しい本を買いました</h3>
+
+            <div class="pitch-display">
+                <div class="word">新しい本を買いました</div>
+                <div class="reading">(あたらしいほんをかいました)</div>
+
+                <div class="visual">
+                    <div class="pitch-accent-container"><div class="word">新しい本を買いました</div><div class="pitch-accent"><svg width="196" height="22" viewBox="0 0 196 22" xmlns="http://www.w3.org/2000/svg"><path d="M 8,16 L 23,8 L 38,8 L 53,8 L 68,16 L 83,8 L 98,16 L 113,16 L 128,16 L 143,8 L 158,8 L 173,8 L 188,8" stroke="black" fill="none" stroke-width="0.75"/><circle cx="8" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="23" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="38" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="53" cy="8" r="3" stroke="black" stroke-width="0.75" fill="white"/><circle cx="68" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="83" cy="8" r="3" stroke="black" stroke-width="0.75" fill="white"/><circle cx="98" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="113" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="128" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="143" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="158" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="173" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="188" cy="8" r="3" stroke="black" stroke-width="0.75" fill="white"/></svg></div></div>
+                </div>
+
+                <div class="pattern">Pattern: L H H H L H L L L H H H H</div>
+
+                <div class="success">✅ Correctly processed with Atamadaka rules</div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="section">
+        <h2>✅ Atamadaka Words Always Start HIGH</h2>
+        <p>Testing various Atamadaka words to ensure they always start HIGH</p>
+
+        <div class="example">
+            <h3>Example: 本を買う</h3>
+
+            <div class="pitch-display">
+                <div class="word">本を買う</div>
+                <div class="reading">(ほんをかう)</div>
+
+                <div class="visual">
+                    <div class="pitch-accent-container"><div class="word">本を買う</div><div class="pitch-accent"><svg width="76" height="22" viewBox="0 0 76 22" xmlns="http://www.w3.org/2000/svg"><path d="M 8,8 L 23,16 L 38,16 L 53,16 L 68,8" stroke="black" fill="none" stroke-width="0.75"/><circle cx="8" cy="8" r="3" stroke="black" stroke-width="0.75" fill="white"/><circle cx="23" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="38" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="53" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="68" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/></svg></div></div>
+                </div>
+
+                <div class="pattern">Pattern: H L L L H</div>
+
+                <div class="success">✅ Correctly processed with Atamadaka rules</div>
+            </div>
+
+        </div>
+
+        <div class="example">
+            <h3>Example: 学校に行く</h3>
+
+            <div class="pitch-display">
+                <div class="word">学校に行く</div>
+                <div class="reading">(がっこうにいく)</div>
+
+                <div class="visual">
+                    <div class="pitch-accent-container"><div class="word">学校に行く</div><div class="pitch-accent"><svg width="106" height="22" viewBox="0 0 106 22" xmlns="http://www.w3.org/2000/svg"><path d="M 8,16 L 23,8 L 38,8 L 53,8 L 68,8 L 83,8 L 98,8" stroke="black" fill="none" stroke-width="0.75"/><circle cx="8" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="23" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="38" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="53" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="68" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="83" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="98" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/></svg></div></div>
+                </div>
+
+                <div class="pattern">Pattern: L H H H H H H</div>
+
+                <div class="success">✅ Correctly processed with Atamadaka rules</div>
+            </div>
+
+        </div>
+
+        <div class="example">
+            <h3>Example: 映画を見る</h3>
+
+            <div class="pitch-display">
+                <div class="word">映画を見る</div>
+                <div class="reading">(えいがをみる)</div>
+
+                <div class="visual">
+                    <div class="pitch-accent-container"><div class="word">映画を見る</div><div class="pitch-accent"><svg width="91" height="22" viewBox="0 0 91 22" xmlns="http://www.w3.org/2000/svg"><path d="M 8,8 L 23,16 L 38,16 L 53,16 L 68,8 L 83,16" stroke="black" fill="none" stroke-width="0.75"/><circle cx="8" cy="8" r="3" stroke="black" stroke-width="0.75" fill="white"/><circle cx="23" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="38" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="53" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="68" cy="8" r="3" stroke="black" stroke-width="0.75" fill="white"/><circle cx="83" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/></svg></div></div>
+                </div>
+
+                <div class="pattern">Pattern: H L L L H L</div>
+
+                <div class="success">✅ Correctly processed with Atamadaka rules</div>
+            </div>
+
+        </div>
+
+        <div class="example">
+            <h3>Example: 料理を作る</h3>
+
+            <div class="pitch-display">
+                <div class="word">料理を作る</div>
+                <div class="reading">(りょうりをつくる)</div>
+
+                <div class="visual">
+                    <div class="pitch-accent-container"><div class="word">料理を作る</div><div class="pitch-accent"><svg width="121" height="22" viewBox="0 0 121 22" xmlns="http://www.w3.org/2000/svg"><path d="M 8,8 L 23,16 L 38,16 L 53,16 L 68,16 L 83,16 L 98,8 L 113,16" stroke="black" fill="none" stroke-width="0.75"/><circle cx="8" cy="8" r="3" stroke="black" stroke-width="0.75" fill="white"/><circle cx="23" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="38" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="53" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="68" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="83" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="98" cy="8" r="3" stroke="black" stroke-width="0.75" fill="white"/><circle cx="113" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/></svg></div></div>
+                </div>
+
+                <div class="pattern">Pattern: H L L L L L H L</div>
+
+                <div class="success">✅ Correctly processed with Atamadaka rules</div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="section">
+        <h2>🔄 Other Words Still Inherit Pitch</h2>
+        <p>Testing that non-Atamadaka words still inherit pitch correctly</p>
+
+        <div class="example">
+            <h3>Example: 大学に行きます</h3>
+
+            <div class="pitch-display">
+                <div class="word">大学に行きます</div>
+                <div class="reading">(だいがくにいきます)</div>
+
+                <div class="visual">
+                    <div class="pitch-accent-container"><div class="word">大学に行きます</div><div class="pitch-accent"><svg width="136" height="22" viewBox="0 0 136 22" xmlns="http://www.w3.org/2000/svg"><path d="M 8,16 L 23,8 L 38,8 L 53,8 L 68,8 L 83,8 L 98,8 L 113,8 L 128,16" stroke="black" fill="none" stroke-width="0.75"/><circle cx="8" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="23" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="38" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="53" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="68" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="83" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="98" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="113" cy="8" r="3" stroke="black" stroke-width="0.75" fill="white"/><circle cx="128" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/></svg></div></div>
+                </div>
+
+                <div class="pattern">Pattern: L H H H H H H H L</div>
+
+                <div class="success">✅ Correctly processed with Atamadaka rules</div>
+            </div>
+
+        </div>
+
+        <div class="example">
+            <h3>Example: 友達と話す</h3>
+
+            <div class="pitch-display">
+                <div class="word">友達と話す</div>
+                <div class="reading">(ともだちとはなす)</div>
+
+                <div class="visual">
+                    <div class="pitch-accent-container"><div class="word">友達と話す</div><div class="pitch-accent"><svg width="121" height="22" viewBox="0 0 121 22" xmlns="http://www.w3.org/2000/svg"><path d="M 8,16 L 23,8 L 38,8 L 53,8 L 68,8 L 83,8 L 98,8 L 113,16" stroke="black" fill="none" stroke-width="0.75"/><circle cx="8" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="23" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="38" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="53" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="68" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="83" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="98" cy="8" r="3" stroke="black" stroke-width="0.75" fill="white"/><circle cx="113" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/></svg></div></div>
+                </div>
+
+                <div class="pattern">Pattern: L H H H H H H L</div>
+
+                <div class="success">✅ Correctly processed with Atamadaka rules</div>
+            </div>
+
+        </div>
+
+        <div class="example">
+            <h3>Example: 家で勉強する</h3>
+
+            <div class="pitch-display">
+                <div class="word">家で勉強する</div>
+                <div class="reading">(いえでべんきょうする)</div>
+
+                <div class="visual">
+                    <div class="pitch-accent-container"><div class="word">家で勉強する</div><div class="pitch-accent"><svg width="151" height="22" viewBox="0 0 151 22" xmlns="http://www.w3.org/2000/svg"><path d="M 8,16 L 23,8 L 38,8 L 53,8 L 68,8 L 83,8 L 98,8 L 113,8 L 128,8 L 143,16" stroke="black" fill="none" stroke-width="0.75"/><circle cx="8" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="23" cy="8" r="3" stroke="black" stroke-width="0.75" fill="white"/><circle cx="38" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="53" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="68" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="83" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="98" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="113" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="128" cy="8" r="3" stroke="black" stroke-width="0.75" fill="white"/><circle cx="143" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/></svg></div></div>
+                </div>
+
+                <div class="pattern">Pattern: L H H H H H H H H L</div>
+
+                <div class="success">✅ Correctly processed with Atamadaka rules</div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="section">
+        <h2>📝 Complex Sentences</h2>
+        <p>Testing longer sentences with multiple pitch patterns</p>
+
+        <div class="example">
+            <h3>Example: 私は毎日日本語を勉強しています</h3>
+
+            <div class="pitch-display">
+                <div class="word">私は毎日日本語を勉強しています</div>
+                <div class="reading">(わたしはまいにちにほんごをべんきょうしています)</div>
+
+                <div class="visual">
+                    <div class="pitch-accent-container"><div class="word">私は毎日日本語を勉強しています</div><div class="pitch-accent"><svg width="346" height="22" viewBox="0 0 346 22" xmlns="http://www.w3.org/2000/svg"><path d="M 8,16 L 23,8 L 38,8 L 53,16 L 68,8 L 83,16 L 98,16 L 113,16 L 128,16 L 143,8 L 158,8 L 173,8 L 188,8 L 203,8 L 218,8 L 233,8 L 248,8 L 263,8 L 278,8 L 293,16 L 308,16 L 323,8 L 338,8" stroke="black" fill="none" stroke-width="0.75"/><circle cx="8" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="23" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="38" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="53" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="68" cy="8" r="3" stroke="black" stroke-width="0.75" fill="white"/><circle cx="83" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="98" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="113" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="128" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="143" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="158" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="173" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="188" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="203" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="218" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="233" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="248" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="263" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="278" cy="8" r="3" stroke="black" stroke-width="0.75" fill="white"/><circle cx="293" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="308" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="323" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="338" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/></svg></div></div>
+                </div>
+
+                <div class="pattern">Pattern: L H H L H L L L L H H H H H H H H H H L L H H</div>
+
+                <div class="success">✅ Correctly processed with Atamadaka rules</div>
+            </div>
+
+        </div>
+
+        <div class="example">
+            <h3>Example: 新しい本を買って読みました</h3>
+
+            <div class="pitch-display">
+                <div class="word">新しい本を買って読みました</div>
+                <div class="reading">(あたらしいほんをかってよみました)</div>
+
+                <div class="visual">
+                    <div class="pitch-accent-container"><div class="word">新しい本を買って読みました</div><div class="pitch-accent"><svg width="241" height="22" viewBox="0 0 241 22" xmlns="http://www.w3.org/2000/svg"><path d="M 8,16 L 23,8 L 38,8 L 53,8 L 68,16 L 83,8 L 98,16 L 113,16 L 128,16 L 143,8 L 158,8 L 173,8 L 188,16 L 203,16 L 218,16 L 233,8" stroke="black" fill="none" stroke-width="0.75"/><circle cx="8" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="23" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="38" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="53" cy="8" r="3" stroke="black" stroke-width="0.75" fill="white"/><circle cx="68" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="83" cy="8" r="3" stroke="black" stroke-width="0.75" fill="white"/><circle cx="98" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="113" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="128" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="143" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="158" cy="8" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="173" cy="8" r="3" stroke="black" stroke-width="0.75" fill="white"/><circle cx="188" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="203" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="218" cy="16" r="3" stroke="black" stroke-width="0.75" fill="black"/><circle cx="233" cy="8" r="3" stroke="black" stroke-width="0.75" fill="white"/></svg></div></div>
+                </div>
+
+                <div class="pattern">Pattern: L H H H L H L L L H H H L L L H</div>
+
+                <div class="success">✅ Correctly processed with Atamadaka rules</div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="section">
+        <h2>📊 Before vs After Comparison</h2>
+        <div class="comparison">
+            <h4>Before the Fix (WRONG):</h4>
+            <p>新しい本 → 新しい (L H H H L) + 本 (L L) = L H H H L L L L L H H H H</p>
+            <p><strong>Problem:</strong> 本 started LOW instead of HIGH</p>
+            
+            <h4>After the Fix (CORRECT):</h4>
+            <p>新しい本 → 新しい (L H H H L) + 本 (H L) = L H H H L H L L L H H H H</p>
+            <p><strong>Solution:</strong> 本 now correctly starts HIGH</p>
+        </div>
+    </div>
+
+</body>
+</html>

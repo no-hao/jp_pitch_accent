@@ -10,7 +10,7 @@ import os
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from pitch_db import PitchDB
-from pitch_tokenizer import JapaneseTokenizer
+from sentence_pitch_processor import SentencePitchProcessor
 
 class TestFieldAutoFill(unittest.TestCase):
     """Test field auto-fill functionality"""
@@ -18,7 +18,11 @@ class TestFieldAutoFill(unittest.TestCase):
     def setUp(self):
         """Set up test fixtures"""
         self.db = PitchDB()
-        self.tokenizer = JapaneseTokenizer()
+        self.processor = SentencePitchProcessor()
+        
+        # Helper methods for character type checking
+        self._is_kanji = lambda char: '\u4e00' <= char <= '\u9fff'
+        self._is_kana = lambda char: '\u3040' <= char <= '\u309f' or '\u30a0' <= char <= '\u30ff'
         
         # Test cases: (input_text, expected_reading, expected_meaning)
         self.test_cases = [
@@ -40,7 +44,7 @@ class TestFieldAutoFill(unittest.TestCase):
             print(f"\nInput: {text}")
             
             # Tokenize
-            tokens = self.tokenizer.tokenize(text)
+            tokens = self.processor._tokenize(text)
             print(f"  Tokens: {tokens}")
             
             # Process tokens (simulate the addon logic)
@@ -56,7 +60,7 @@ class TestFieldAutoFill(unittest.TestCase):
                 print(f"    Token: {surface} -> {dict_form} (reading: {reading}, pos: {pos})")
                 
                 # Skip punctuation
-                if all(not self.tokenizer.is_kanji(c) and not self.tokenizer.is_kana(c) for c in surface):
+                if all(not self._is_kanji(c) and not self._is_kana(c) for c in surface):
                     readings.append(surface)
                     continue
                 
@@ -101,7 +105,7 @@ class TestFieldAutoFill(unittest.TestCase):
             print(f"\nInput: {text}")
             
             # Tokenize
-            tokens = self.tokenizer.tokenize(text)
+            tokens = self.processor._tokenize(text)
             print(f"  Tokens: {len(tokens)} found")
             
             # Process tokens (simulate the addon logic)
@@ -115,7 +119,7 @@ class TestFieldAutoFill(unittest.TestCase):
                 pos = token.get("pos", [])
                 
                 # Skip punctuation
-                if all(not self.tokenizer.is_kanji(c) and not self.tokenizer.is_kana(c) for c in surface):
+                if all(not self._is_kanji(c) and not self._is_kana(c) for c in surface):
                     readings.append(surface)
                     continue
                 

@@ -2,14 +2,14 @@ import unittest
 import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from pitch_tokenizer import JapaneseTokenizer
+from sentence_pitch_processor import SentencePitchProcessor
 
 class TestTokenizer(unittest.TestCase):
     """Test Japanese text tokenization with SudachiPy"""
     
     def setUp(self):
         """Set up test fixtures"""
-        self.tokenizer = JapaneseTokenizer()
+        self.processor = SentencePitchProcessor()
     
     def test_tokenization(self):
         """Test Japanese text tokenization"""
@@ -25,7 +25,7 @@ class TestTokenizer(unittest.TestCase):
         
         for text in test_texts:
             print(f"\nTokenizing: {text}")
-            tokens = self.tokenizer.tokenize(text)
+            tokens = self.processor._tokenize(text)
             
             for token in tokens:
                 print(f"\nToken:")

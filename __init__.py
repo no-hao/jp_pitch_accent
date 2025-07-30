@@ -8,7 +8,7 @@ import os
 from . import pitch_svg
 from . import pitch_db
 from . import note_types
-from . import pitch_tokenizer
+from . import sentence_pitch_processor
 
 def load_config():
     """Load addon configuration"""
@@ -37,60 +37,20 @@ def on_focus_lost(flag, note, field_idx):
             
         print(f"Processing text: {text}")
         
-        # Process the text
-        tokenizer = pitch_tokenizer.JapaneseTokenizer()
-        tokens = tokenizer.tokenize(text)
-        print(f"Tokens: {tokens}")
+        # Use sentence processor for better handling
+        processor = sentence_pitch_processor.SentencePitchProcessor()
+        result = processor.process_sentence(text)
         
-        readings = []
-        meanings = []
-        
-        for token in tokens:
-            surface = token["surface"]
-            dict_form = token.get("dict", surface)
-            reading = token.get("reading", surface)
-            pos = token.get("pos", [])
+        if result and result['reading']:
+            # Update Reading field
+            note['Reading'] = result['reading']
+            print(f"Updated reading: {result['reading']}")
             
-            print(f"Processing token: {surface} -> {dict_form} (reading: {reading}, pos: {pos})")
-            
-            # Skip processing for punctuation
-            if all(not tokenizer.is_kanji(c) and not tokenizer.is_kana(c) for c in surface):
-                print(f"Skipping punctuation: {surface}")
-                readings.append(surface)  # Keep punctuation as-is
-                continue
-                
-            # Get reading and pitch info
-            pitch_info = db.lookup(dict_form)
-            if not pitch_info and config['ojad']['enabled']:
-                print(f"No pitch info found, trying OJAD for {dict_form}")
-                pitch_info = db.lookup_with_cache(dict_form)
-                
-            if pitch_info:
-                print(f"Found pitch info: {pitch_info}")
-                reading = pitch_info["reading"]
-                readings.append(reading)
-            else:
-                # Fallback to SudachiPy reading
-                print(f"Using SudachiPy reading: {reading}")
-                readings.append(reading)
-            
-            # Extract part of speech for meaning field
-            if pos and len(pos) > 0:
-                pos_str = pos[0]  # Primary part of speech
-                if pos_str in ['名詞', '動詞', '形容詞', '副詞']:
-                    meanings.append(f"{surface}({pos_str})")
-        
-        # Update Reading field - join without spaces for Japanese
-        if readings:
-            combined_reading = ''.join(readings)
-            print(f"Combined reading: {combined_reading}")
-            note['Reading'] = combined_reading
-        
-        # Update Meaning field with parts of speech
-        if meanings:
-            combined_meaning = ' '.join(meanings)
-            print(f"Combined meaning: {combined_meaning}")
-            note['Meaning'] = combined_meaning
+            # Update Pitch field with visualization
+            if result['pattern']:
+                html = processor.generate_sentence_html(text)
+                note['Pitch'] = html
+                print(f"Updated pitch visualization")
         
         return True
         
